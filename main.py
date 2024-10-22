@@ -1,3 +1,4 @@
+import torch
 from fastapi import Response, FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from ultralytics import YOLO
@@ -19,8 +20,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = YOLO(model=config['model']['name'])
+model.to(device)
 
 
 @app.get("/health-check", status_code=status.HTTP_200_OK)
