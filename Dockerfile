@@ -3,9 +3,6 @@ LABEL authors="Safaei"
 
 WORKDIR /app
 
-
-
-
 RUN sed -i 's/archive.ubuntu.com/ubuntu.shatel.ir/g' /etc/apt/sources.list
 
 RUN apt-get update && \
@@ -13,11 +10,9 @@ RUN apt-get update && \
     locale-gen en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8
 
-
 COPY . .
 
 RUN pip install --no-cache-dir --index-url https://nexus.aiengines.ir/repository/pypi/simple -r requirements.txt
-
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
